@@ -16,3 +16,8 @@ export const userById = async (req,res, next, id) =>{
         console.log(error)
     }
 }
+
+export const getUser = async (req,res) =>{
+    const user = await User.find().exec();
+    res.json(user);
+}

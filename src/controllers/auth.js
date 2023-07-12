@@ -1,22 +1,23 @@
 import User from '../models/users';
 import jwt from 'jsonwebtoken';
 export const signup = async (req, res) => {
+    const { name, email, password } = req.body;
     try {
-        const { username, email, password } = req.body;
+       
         const existUser = await User.findOne({ email }).exec();
         if (existUser) {
             res.json({
                 massage: "email đã tồn tại"
             })
         }
-        console.log(req.body);
-        const user = await new User({ username, email, password }).save();
        
+        const user = await new User({ name, email, password }).save();
+        console.log(req.body);
         res.json({
             user: {
                 _id: user._id,
-                username: user.username,
-                email: user.email,
+                name: user.name,
+                email: user.email
             }
         });
     } catch (error) {
